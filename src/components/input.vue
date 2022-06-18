@@ -14,6 +14,7 @@
     justify-content: space-between;
     flex-direction: row;
     background: var(--element);
+    border-radius: .25rem;
 
     div {
       display: flex;
@@ -36,6 +37,10 @@
         font-size: 1rem;
         font-weight: 800;
         color: var(--text);
+
+        &::placeholder {
+          color: var(--text);
+        }
 
         &:focus {
           outline: none;
