@@ -76,6 +76,8 @@ section {
 
 #darkIcon {
   fill: var(--text);
+  width: 1.5rem;
+  height: auto;
 }
 
 .wrapper {
@@ -101,6 +103,7 @@ section {
     svg {
       width: 1.5rem;
       height: auto;
+      fill: var(--text);
     }
 
     p {
