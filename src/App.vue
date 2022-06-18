@@ -1,8 +1,9 @@
 <template>
   <Header></Header>
   <Container class="mainWrapper">
-    <Container>
+    <Container class="actionsWrapper">
       <Input @search="handleFetchCountries($event)" />
+      <Select @select="handleFetchCountries($event)" />
     </Container>
     <Container class="cardWrapper">
       <div v-for="country in countries">
@@ -24,24 +25,40 @@ import Header from "./components/header.vue";
 import Card from "./components/card.vue";
 import Container from "./components/container.vue";
 import Input from "./components/input.vue";
+import Select from "./components/select.vue";
 import { onMounted, ref } from "vue";
 
 const countries = ref<any[]>([]);
 
-const handleFetchCountries = async (country?: string) => {
-  let endpoint = 'https://restcountries.com/v3.1/all'
-  
-  if (country) {
-    endpoint = `https://restcountries.com/v3.1/name/${country}`
+interface Props {
+  type: 'name' | 'region' | 'default',
+  value: String
+}
+
+const handleFetchCountries = async (params: Props) => {
+  let endpoint = "";
+
+  switch (params.type) {
+    case 'name':
+      endpoint = `https://restcountries.com/v3.1/name/${params.value}`;
+    break;
+    case 'region':
+      if (params.value === 'hide') {
+        endpoint = "https://restcountries.com/v3.1/all";
+      } else {
+        endpoint = `https://restcountries.com/v3.1/region/${params.value}`
+      }
+    break;
+    default:
+      endpoint = "https://restcountries.com/v3.1/all";
+    break;
   }
 
-  countries.value = await fetch(endpoint).then(
-    (res) => res.json()
-  );
+  countries.value = await fetch(endpoint).then((res) => res.json());
 };
 
 onMounted(() => {
-  handleFetchCountries();
+  handleFetchCountries({ type: 'default', value: '' });
 });
 </script>
 
@@ -84,5 +101,11 @@ body {
   grid-template-columns: repeat(4, 1fr);
   grid-auto-flow: row;
   gap: 2rem;
+}
+
+.actionsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>

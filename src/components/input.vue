@@ -15,7 +15,7 @@ const emit = defineEmits(['search'])
 const inputValue = ref<String>()
 
 const handleSubmitSearch = () => {
-  emit("search", inputValue.value)
+  emit("search", { type: 'name', value: inputValue.value })
 }
 </script>
 
