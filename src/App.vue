@@ -40,7 +40,11 @@ const handleFetchCountries = async (params: Props) => {
 
   switch (params.type) {
     case 'name':
-      endpoint = `https://restcountries.com/v3.1/name/${params.value}`;
+      if (!params.value) {
+        endpoint = "https://restcountries.com/v3.1/all";
+      } else {
+        endpoint = `https://restcountries.com/v3.1/name/${params.value}`;
+      }
     break;
     case 'region':
       if (params.value === 'hide') {
