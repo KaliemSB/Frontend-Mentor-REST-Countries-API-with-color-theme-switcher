@@ -2,7 +2,7 @@
   <Header></Header>
   <Container class="mainWrapper">
     <Container>
-      <Input />
+      <Input @search="handleFetchCountries($event)" />
     </Container>
     <Container class="cardWrapper">
       <div v-for="country in countries">
@@ -28,10 +28,20 @@ import { onMounted, ref } from "vue";
 
 const countries = ref<any[]>([]);
 
-onMounted(async () => {
-  countries.value = await fetch("https://restcountries.com/v3.1/all").then(
+const handleFetchCountries = async (country?: string) => {
+  let endpoint = 'https://restcountries.com/v3.1/all'
+  
+  if (country) {
+    endpoint = `https://restcountries.com/v3.1/name/${country}`
+  }
+
+  countries.value = await fetch(endpoint).then(
     (res) => res.json()
   );
+};
+
+onMounted(() => {
+  handleFetchCountries();
 });
 </script>
 
