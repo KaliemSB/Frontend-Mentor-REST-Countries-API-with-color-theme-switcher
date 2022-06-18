@@ -1,7 +1,21 @@
 <template>
   <Header></Header>
-  <Container style="margin-top: 1rem;">
-    <Card/>
+  <Container class="mainWrapper">
+    <Container>
+      <Input />
+    </Container>
+    <Container class="cardWrapper">
+      <div v-for="country in countries">
+        <Card
+          :flag="country.flags.svg"
+          :name="country.name.common"
+          :region="country.region"
+          :capital="country.capital"
+          :population="country.population"
+          :alt="country.name.common"
+        />
+      </div>
+    </Container>
   </Container>
 </template>
 
@@ -9,6 +23,16 @@
 import Header from "./components/header.vue";
 import Card from "./components/card.vue";
 import Container from "./components/container.vue";
+import Input from "./components/input.vue";
+import { onMounted, ref } from "vue";
+
+const countries = ref<any[]>([]);
+
+onMounted(async () => {
+  countries.value = await fetch("https://restcountries.com/v3.1/all").then(
+    (res) => res.json()
+  );
+});
 </script>
 
 <style lang="scss">
@@ -16,7 +40,7 @@ import Container from "./components/container.vue";
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 body {
@@ -36,5 +60,19 @@ body {
   --input: hsl(209, 23%, 22%);
   --element: hsl(209, 23%, 22%);
   --text: hsl(0, 0%, 100%);
+}
+
+.mainWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.cardWrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: row;
+  gap: 2rem;
 }
 </style>
