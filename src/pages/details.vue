@@ -1,5 +1,11 @@
 <template>
-  <Container class="container">
+  <Container style="margin-bottom: 2rem;">
+    <router-link to="/" class="backButton">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"/></svg>
+      <p>Back</p>
+    </router-link>
+  </Container>
+  <Container class="mainWrapper">
     <div>
       <img class="flag" :src="countries?.flags.svg" alt="DE">
     </div>
@@ -11,7 +17,7 @@
           <p><strong>Population:</strong> {{ countries?.population.toLocaleString() }}</p>
           <p><strong>Region:</strong> {{ countries?.region }}</p>
           <p><strong>Sub Region:</strong> {{ countries?.subregion }}</p>
-          <p><strong>Capital:</strong> {{ countries?.capital[0] }}</p>
+          <p><strong>Capital:</strong> {{ countries?.capital ? countries?.capital[0] : '' }}</p>
         </div>
         <div>
           <p><strong>Top Level Domain:</strong> {{ countries?.tld[0] }}</p>
@@ -22,9 +28,9 @@
       <div>
         <p class="buttonWrapper"><strong>Border Countries:</strong>
           <div>
-            <a :href="$router.resolve({ name: 'Details', params: { name: country } }).href" v-for="(country, index) in borderCountry" class="button" :key="index">
+            <div v-for="(country, index) in borderCountry" class="button" :key="index">
               {{ country }}
-            </a>
+            </div>
           </div>
         </p>
       </div>
@@ -81,6 +87,36 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
+.backButton {
+  background: var(--element);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  padding: .6rem 2rem;
+  gap: .4rem;
+  border: none;
+  cursor: pointer;
+  border-radius: .25rem;
+  margin-top: 2rem;
+
+  &:hover {
+    opacity: .9;
+  }
+
+  svg {
+    display: block;
+    fill: var(--text);
+    width: .6rem;
+    height: auto;
+  }
+  
+  p {
+    color: var(--text);
+    font-weight: 800;
+  }
+}
+
 .buttonWrapper {
   display: flex;
   gap: 1rem;
@@ -93,7 +129,7 @@ onMounted(async () => {
   }
 }
 
-.container {
+.mainWrapper {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   align-items: center;
