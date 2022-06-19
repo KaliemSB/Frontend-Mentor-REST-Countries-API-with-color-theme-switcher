@@ -1,5 +1,6 @@
 <template>
   <div style="box-shadow: rgba(149, 157, 165, 0.2) 0px 4px 12px">
+  <router-link class="link" :to="name.toLowerCase()" >
     <img :src="flag" :alt="alt" />
     <div class="wrapper">
       <h3>{{ name }}</h3>
@@ -9,12 +10,16 @@
         <p><strong>Capital:</strong> {{ capital[0] }}</p>
       </div>
     </div>
+    </router-link>
   </div>
 </template>
 
 <script lang="ts" setup>
 const props = defineProps({
-  name: String,
+  name: {
+    type: String,
+    default: 'brazil'
+  },
   region: String,
   capital: {
     default: "Capital",
@@ -30,11 +35,16 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
+.link {
+  text-decoration: none;
+}
+
 div {
   display: inline-flex;
   flex-direction: column;
   border-radius: 4px;
   background: var(--element);
+  cursor: pointer;
 
   img {
     width: 100%;

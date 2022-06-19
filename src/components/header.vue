@@ -1,7 +1,7 @@
 <template>
   <section>
     <Container class="wrapper">
-      <h1>Where in the world?</h1>
+      <router-link :to="'/'">Where in the world?</router-link>
       <button @click="toggleTheme">
         <svg
           v-if="userTheme !== 'dark-theme'"
@@ -85,7 +85,8 @@ section {
   align-items: center;
   justify-content: space-between;
 
-  h1 {
+  a {
+    text-decoration: none;
     font-size: 2rem;
     font-weight: 800;
     color: var(--text);
