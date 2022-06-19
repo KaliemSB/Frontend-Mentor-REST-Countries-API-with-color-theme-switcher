@@ -40,7 +40,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import Container from '../components/container.vue';
 
 interface Props {
@@ -62,6 +62,7 @@ interface Props {
 }
 
 const route = useRoute()
+const router = useRouter()
 const countries = ref<Props>();
 const currencyName = ref()
 const languages = ref()
@@ -69,20 +70,24 @@ const borderCountry = ref()
 
 const handleFetchCountry = async () => {
   countries.value = await fetch(`https://restcountries.com/v3.1/name/${route.params.name}`)
-    .then(res => res.json())
-    .then(res => res[0])
+  .then(res => res.json())
+  .then(res => res[0])
 };
 
 onMounted(async () => {
-  await handleFetchCountry()
+  try {
+    await handleFetchCountry()
 
-  const currency: any = Object.keys(countries.value?.currencies)[0]
+    const currency: any = Object.keys(countries.value?.currencies)[0]
 
-  currencyName.value = currency
+    currencyName.value = currency
 
-  languages.value = Object.values(countries.value?.languages).join(', ')
+    languages.value = Object.values(countries.value?.languages).join(', ')
 
-  borderCountry.value = countries.value?.borders.splice(0, 3)
+    borderCountry.value = countries.value?.borders.splice(0, 3)
+  } catch (error) {
+    router.push({ name: 'Home' })
+  }
 })
 </script>
 
