@@ -75,9 +75,22 @@ section {
 }
 
 #darkIcon {
-  fill: var(--text);
-  width: 1.5rem;
+  width: .8rem;
   height: auto;
+  fill: var(--text);
+
+  @media (min-width: 576px) {
+    width: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    width: 1.5rem;
+  }
+  @media (min-width: 992px) {
+    width: 1.5rem;
+  }
+  @media (min-width: 1200px) {
+    width: 1.5rem;
+  }
 }
 
 .wrapper {
@@ -87,9 +100,22 @@ section {
 
   a {
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 1.2rem;
     font-weight: 800;
     color: var(--text);
+
+    @media (min-width: 576px) {
+      font-size: 2rem;
+    }
+    @media (min-width: 768px) {
+      font-size: 2rem;
+    }
+    @media (min-width: 992px) {
+      font-size: 2rem;
+    }
+    @media (min-width: 1200px) {
+      font-size: 2rem;
+    }
   }
 
   button {
@@ -102,15 +128,41 @@ section {
     cursor: pointer;
 
     svg {
-      width: 1.5rem;
+      width: .8rem;
       height: auto;
       fill: var(--text);
+
+      @media (min-width: 576px) {
+        width: 1.5rem;
+      }
+      @media (min-width: 768px) {
+        width: 1.5rem;
+      }
+      @media (min-width: 992px) {
+        width: 1.5rem;
+      }
+      @media (min-width: 1200px) {
+        width: 1.5rem;
+      }
     }
 
     p {
-      font-size: 1rem;
+      font-size: .8rem;
       font-weight: 800;
       color: var(--text);
+
+      @media (min-width: 576px) {
+        font-size: 1rem;
+      }
+      @media (min-width: 768px) {
+        font-size: 1rem;
+      }
+      @media (min-width: 992px) {
+        font-size: 1rem;
+      }
+      @media (min-width: 1200px) {
+        font-size: 1rem;
+      }
     }
   }
 }

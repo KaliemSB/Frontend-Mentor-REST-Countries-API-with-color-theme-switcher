@@ -13,7 +13,7 @@ export const router = createRouter({
     {
       path: "/:name",
       name: "Details",
-      component: details,
+      component: details
     },
   ]
 })
